@@ -1,0 +1,27 @@
+sm_workers.settings:
+  type: config_object
+  label: 'SM Workers settings'
+  mapping:
+    circuit_breakers:
+      type: mapping
+      label: 'Circuit breakers'
+      mapping:
+        failure_threshold:
+          type: integer
+          label: 'Failure threshold'
+        cooldown_seconds:
+          type: integer
+          label: 'Cooldown seconds'
+        intake_pause_seconds:
+          type: integer
+          label: 'Breaker intake pause in seconds'
+    execution:
+      type: mapping
+      label: 'Execution defaults'
+      mapping:
+        default_timeout_seconds:
+          type: integer
+          label: 'Default timeout in seconds'
+        default_forward_auth:
+          type: boolean
+          label: 'Forward authorization by default'

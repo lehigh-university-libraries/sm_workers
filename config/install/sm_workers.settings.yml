@@ -1,0 +1,7 @@
+circuit_breakers:
+  failure_threshold: 5
+  cooldown_seconds: 300
+  intake_pause_seconds: 5
+execution:
+  default_timeout_seconds: 300
+  default_forward_auth: true

@@ -1,0 +1,13 @@
+sm_workers.settings:
+  title: 'SM Workers Settings'
+  description: 'Configure worker runtime defaults and circuit breaker thresholds.'
+  route_name: sm_workers.settings
+  parent: system.admin_config_services
+  weight: 99
+
+sm_workers.circuit_breakers:
+  title: 'SM Workers Circuit Breakers'
+  description: 'Inspect and control downstream circuit breakers.'
+  route_name: sm_workers.circuit_breakers
+  parent: system.admin_config_services
+  weight: 100

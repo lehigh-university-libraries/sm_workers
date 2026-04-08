@@ -1,0 +1,7 @@
+name: "SM Workers"
+type: module
+description: "Generic execution runtime, circuit breaker tooling, and worker definition metadata for Symfony Messenger workers in Drupal."
+package: Messaging
+core_version_requirement: ^10 || ^11
+dependencies:
+  - sm:sm

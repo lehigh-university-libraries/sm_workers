@@ -1,0 +1,33 @@
+sm_workers.settings:
+  path: '/admin/config/services/sm-workers/settings'
+  defaults:
+    _form: '\Drupal\sm_workers\Form\SmWorkersSettingsForm'
+    _title: 'SM Workers Settings'
+  requirements:
+    _permission: 'administer sm workers'
+
+sm_workers.circuit_breakers:
+  path: '/admin/config/services/sm-workers/circuit-breakers'
+  defaults:
+    _controller: 'sm_workers.circuit_breaker_controller:overview'
+    _title: 'SM Workers Circuit Breakers'
+  requirements:
+    _permission: 'administer sm workers'
+
+sm_workers.circuit_breaker_trip:
+  path: '/admin/config/services/sm-workers/circuit-breakers/{breaker_id}/trip'
+  defaults:
+    _form: '\Drupal\sm_workers\Form\CircuitBreakerActionConfirmForm'
+    action: 'trip'
+    _title: 'Trip Circuit Breaker'
+  requirements:
+    _permission: 'administer sm workers'
+
+sm_workers.circuit_breaker_reset:
+  path: '/admin/config/services/sm-workers/circuit-breakers/{breaker_id}/reset'
+  defaults:
+    _form: '\Drupal\sm_workers\Form\CircuitBreakerActionConfirmForm'
+    action: 'reset'
+    _title: 'Reset Circuit Breaker'
+  requirements:
+    _permission: 'administer sm workers'

@@ -1,0 +1,10 @@
+services:
+  sm_workers_test.worker_definitions:
+    class: Drupal\sm_workers_test\Worker\TestWorkerDefinitions
+    tags:
+      - { name: sm_workers.definition_provider }
+
+  sm_workers_test.worker_operations:
+    class: Drupal\sm_workers_test\Worker\TestWorkerOperations
+    tags:
+      - { name: sm_workers.operation_provider }

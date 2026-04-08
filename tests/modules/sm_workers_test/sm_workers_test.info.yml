@@ -1,0 +1,7 @@
+name: "SM Workers Test"
+type: module
+description: "Test-only worker definition provider for sm_workers kernel coverage."
+package: Testing
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:sm_workers

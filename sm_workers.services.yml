@@ -1,0 +1,64 @@
+services:
+  logger.channel.sm_workers:
+    parent: logger.channel_base
+    arguments: ["sm_workers"]
+
+  sm_workers.circuit_breaker:
+    class: Drupal\sm_workers\Service\CircuitBreakerService
+    arguments: ["@state", "@config.factory", "@datetime.time", "@logger.channel.sm_workers", "@lock"]
+  Drupal\sm_workers\Service\CircuitBreakerService: '@sm_workers.circuit_breaker'
+
+  sm_workers.circuit_breaker_controller:
+    class: Drupal\sm_workers\Controller\CircuitBreakerController
+    arguments:
+      - "@sm_workers.circuit_breaker"
+      - !tagged_iterator { tag: sm_workers.circuit_breaker_primer }
+
+  sm_workers.registry:
+    class: Drupal\sm_workers\Service\WorkerDefinitionRegistry
+    arguments:
+      - !tagged_iterator { tag: sm_workers.definition_provider }
+  Drupal\sm_workers\Service\WorkerDefinitionRegistry: '@sm_workers.registry'
+
+  sm_workers.operation_registry:
+    class: Drupal\sm_workers\Service\WorkerOperationRegistry
+    arguments:
+      - !tagged_iterator { tag: sm_workers.operation_provider }
+  Drupal\sm_workers\Service\WorkerOperationRegistry: '@sm_workers.operation_registry'
+
+  sm_workers.command_builder:
+    class: Drupal\sm_workers\Service\WorkerCommandBuilder
+  Drupal\sm_workers\Service\WorkerCommandBuilder: '@sm_workers.command_builder'
+
+  sm_workers.command_executor:
+    class: Drupal\sm_workers\Service\WorkerCommandExecutor
+    arguments: ["@logger.channel.sm_workers"]
+  Drupal\sm_workers\Service\WorkerCommandExecutor: '@sm_workers.command_executor'
+
+  sm_workers.queue_depths:
+    class: Drupal\sm_workers\Service\TransportQueueDepthService
+    arguments: ["@queue", "%sm.transports%"]
+  Drupal\sm_workers\Service\TransportQueueDepthService: '@sm_workers.queue_depths'
+
+  sm_workers.command_token_registry:
+    class: Drupal\sm_workers\CommandToken\WorkerCommandTokenRegistry
+    arguments:
+      - !tagged_iterator { tag: sm_workers.command_token_provider }
+  Drupal\sm_workers\CommandToken\WorkerCommandTokenRegistry: '@sm_workers.command_token_registry'
+
+  sm_workers.execution_manager:
+    class: Drupal\sm_workers\ExecutionStrategy\WorkerExecutionManager
+    arguments:
+      - !tagged_iterator { tag: sm_workers.execution_strategy }
+  Drupal\sm_workers\ExecutionStrategy\WorkerExecutionManager: '@sm_workers.execution_manager'
+
+  sm_workers.runtime_defaults:
+    class: Drupal\sm_workers\ExecutionStrategy\WorkerRuntimeDefaults
+    arguments: ["@config.factory"]
+  Drupal\sm_workers\ExecutionStrategy\WorkerRuntimeDefaults: '@sm_workers.runtime_defaults'
+
+  sm_workers.commands:
+    class: Drupal\sm_workers\Commands\SmWorkersCommands
+    arguments: ["@sm_workers.registry", "@sm_workers.command_builder", "@sm_workers.operation_registry"]
+    tags:
+      - { name: drush.command }

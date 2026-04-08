@@ -1,0 +1,27 @@
+{
+  "name": "drupal/sm_workers",
+  "description": "Generic execution runtime, circuit breaker tooling, and worker definition metadata for Symfony Messenger workers in Drupal.",
+  "type": "drupal-module",
+  "keywords": ["Drupal", "symfony-messenger"],
+  "homepage": "https://drupal.org/project/sm_workers",
+  "support": {
+    "issues": "https://drupal.org/project/issues/sm_workers"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "require": {
+    "drupal/sm": "^0.2"
+  },
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Joe Corall",
+      "email": "jjc223@lehigh.edu",
+      "role": "Maintainer"
+    }
+  ]
+}
